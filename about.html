@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About — Talia Barda</title>
+  <meta name="description" content="Talia Barda is a choreographer and dance artist.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <header class="site-header" data-header>
+    <a class="site-logo" href="index.html" aria-label="Talia Barda — Home">Talia&nbsp;Barda</a>
+    <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="nav-overlay" aria-label="Open menu">
+      <span class="nav-toggle__line"></span>
+      <span class="nav-toggle__line"></span>
+    </button>
+  </header>
+
+  <nav class="nav-overlay" id="nav-overlay" data-nav-overlay aria-hidden="true">
+    <ul class="nav-overlay__list">
+      <li style="--i:0"><a href="works.html">Works</a></li>
+      <li style="--i:1"><a href="collaborations.html">Collaborations</a></li>
+      <li style="--i:2"><a href="teaching.html">Teaching</a></li>
+      <li style="--i:3"><a href="about.html">About</a></li>
+      <li style="--i:4"><a href="contact.html">Contact</a></li>
+    </ul>
+    <p class="nav-overlay__footer">Talia Barda — Choreographer &amp; Dance Artist</p>
+  </nav>
+
+  <main class="page-main">
+    <h1 class="page-title reveal">About</h1>
+    <p class="page-intro reveal">Talia Barda is a choreographer and dance artist.</p>
+    <p class="page-placeholder reveal">Biography — coming next</p>
+  </main>
+
+  <footer class="site-footer">
+    <p class="site-footer__name">Talia Barda</p>
+    <nav class="site-footer__nav" aria-label="Footer">
+      <a href="mailto:hello@taliabarda.com">Email</a>
+      <a href="https://www.instagram.com/" target="_blank" rel="noopener">Instagram</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+    <p class="site-footer__copy">© <span data-year></span> Talia Barda</p>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
