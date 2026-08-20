@@ -5,6 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact — Talia Barda</title>
   <meta name="description" content="For performances, collaborations and workshops — get in touch.">
+  <link rel="canonical" href="https://taliabarda.com/contact.html">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#faf8f4">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Talia Barda">
+  <meta property="og:title" content="Contact — Talia Barda">
+  <meta property="og:description" content="For performances, collaborations and workshops — get in touch.">
+  <meta property="og:url" content="https://taliabarda.com/contact.html">
+  <meta property="og:image" content="https://taliabarda.com/assets/images/og-cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact — Talia Barda">
+  <meta name="twitter:description" content="For performances, collaborations and workshops — get in touch.">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,7 +50,45 @@
   <main class="page-main">
     <h1 class="page-title reveal">Contact</h1>
     <p class="page-intro reveal">For performances, collaborations and workshops — get in touch.</p>
-    <p class="page-placeholder reveal">Contact details &amp; form — coming next</p>
+
+    <div class="contact-grid reveal">
+      <!-- ===== Direct details ===== -->
+      <div class="contact-details">
+        <p class="contact-details__label">Email</p>
+        <a class="contact-details__value" href="mailto:hello@taliabarda.com">hello@taliabarda.com</a>
+
+        <p class="contact-details__label">Instagram</p>
+        <a class="contact-details__value" href="https://www.instagram.com/" target="_blank" rel="noopener">@taliabarda</a>
+      </div>
+
+      <!-- ===== Form —
+           Powered by FormSubmit (formsubmit.co), no backend required.
+           First submission sends a one-time confirmation link to the
+           address below — click it once to activate delivery. Swap the
+           email in the form action if hello@taliabarda.com isn't final. ===== -->
+      <form class="form" action="https://formsubmit.co/hello@taliabarda.com" method="POST">
+        <input type="hidden" name="_subject" value="New message from taliabarda.com">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" required autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" required autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+
+        <button class="btn" type="submit">Send</button>
+      </form>
+    </div>
   </main>
 
   <footer class="site-footer">
