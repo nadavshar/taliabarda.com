@@ -90,6 +90,122 @@
     });
   }
 
+  /* ---------- Work galleries: peek carousel ----------
+     Each .work-gallery is a horizontally scrolling, scroll-snapped
+     strip (pure CSS does the "peek the neighbour" layout). This just
+     wraps it for positioning and adds prev/next buttons that nudge
+     the scroll position by one slide. */
+  document.querySelectorAll(".work-gallery").forEach(function (gallery) {
+    const viewport = document.createElement("div");
+    viewport.className = "work-gallery-viewport";
+    gallery.parentNode.insertBefore(viewport, gallery);
+    viewport.appendChild(gallery);
+
+    function step(direction) {
+      const slide = gallery.querySelector("img");
+      if (!slide) return;
+      const gap = parseFloat(getComputedStyle(gallery).columnGap || "0") || 0;
+      const amount = slide.getBoundingClientRect().width + gap;
+      gallery.scrollBy({ left: direction * amount, behavior: "smooth" });
+    }
+
+    [
+      ["prev", "Previous image", "&#8249;", -1],
+      ["next", "Next image", "&#8250;", 1],
+    ].forEach(function (entry) {
+      const [modifier, label, glyph, direction] = entry;
+      const btn = document.createElement("button");
+      btn.type = "button";
+      btn.className = "work-gallery__nav work-gallery__nav--" + modifier;
+      btn.setAttribute("aria-label", label);
+      btn.innerHTML = glyph;
+      btn.addEventListener("click", function () {
+        step(direction);
+      });
+      viewport.appendChild(btn);
+    });
+
+    gallery.addEventListener("keydown", function (event) {
+      if (event.key === "ArrowLeft") step(-1);
+      if (event.key === "ArrowRight") step(1);
+    });
+  });
+
+  /* ---------- Works index: hover-preview background ----------
+     Each row can carry data-bg="vimeo:ID" / "youtube:ID" / "image:path".
+     The preview is built lazily on first hover/focus, and only one
+     row's preview exists at a time — hovering a new row tears down
+     the previous one — so nothing is decoding in the background and
+     playback stays smooth instead of choppy. */
+  const previewLinks = document.querySelectorAll(".index-link[data-bg]");
+  if (previewLinks.length) {
+    let activeLink = null;
+
+    function buildPreview(spec) {
+      const sep = spec.indexOf(":");
+      const kind = spec.slice(0, sep);
+      const value = spec.slice(sep + 1);
+
+      if (kind === "vimeo") {
+        const iframe = document.createElement("iframe");
+        iframe.src =
+          "https://player.vimeo.com/video/" +
+          encodeURIComponent(value) +
+          "?background=1&autoplay=1&loop=1&muted=1&autopause=0&dnt=1";
+        iframe.allow = "autoplay; fullscreen";
+        iframe.tabIndex = -1;
+        return iframe;
+      }
+      if (kind === "youtube") {
+        const iframe = document.createElement("iframe");
+        iframe.src =
+          "https://www.youtube-nocookie.com/embed/" +
+          encodeURIComponent(value) +
+          "?autoplay=1&mute=1&loop=1&playlist=" +
+          encodeURIComponent(value) +
+          "&controls=0&modestbranding=1&playsinline=1&rel=0&disablekb=1";
+        iframe.allow = "autoplay; encrypted-media";
+        iframe.tabIndex = -1;
+        return iframe;
+      }
+      if (kind === "image") {
+        const img = document.createElement("img");
+        img.src = value;
+        img.alt = "";
+        img.loading = "lazy";
+        return img;
+      }
+      return null;
+    }
+
+    function activatePreview(link) {
+      if (activeLink === link) return;
+      if (activeLink) {
+        const prevBg = activeLink.querySelector(".index-link__bg");
+        if (prevBg) prevBg.innerHTML = "";
+      }
+      activeLink = link;
+      const bg = link.querySelector(".index-link__bg");
+      if (bg && !bg.firstChild) {
+        const el = buildPreview(link.dataset.bg);
+        if (el) bg.appendChild(el);
+      }
+    }
+
+    previewLinks.forEach(function (link) {
+      link.addEventListener("mouseenter", function () {
+        activatePreview(link);
+      });
+      link.addEventListener(
+        "focus",
+        function () {
+          activatePreview(link);
+        },
+        true
+      );
+    });
+  }
+
   /* ---------- Footer year ---------- */
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = String(new Date().getFullYear());
